@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+
+:root {
+  background-color: #0000000d;
+}
+
+@keyframes flow-gradient {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
