@@ -23,11 +23,20 @@ const Conducta2 = () => {
       btn: "Llámanos",
       delay: "animation-delay-300",
     },
+    {
+      title: "FACEBOOK"
+    },
+    {
+      title: "TIKTOK"
+    },
+    {
+      title: "INSTAGRAM"
+    }
   ];
 
   return (
     <section className="bg-gray-100 py-16">
-      <div className="max-w-6xl mx-auto px-4 grid gap-12 md:grid-cols-3 items-stretch">
+      <div className="max-w-6xl mx-auto px-5 grid gap-12 md:grid-cols-3 items-stretch">
         {cards.map((item, index) => (
           <div
             key={index}
@@ -49,6 +58,11 @@ const Conducta2 = () => {
             </button>
           </div>
         ))}
+      </div>
+      <div>
+        <p className= "px-8">
+          detalles
+        </p>
       </div>
     </section>
   );
