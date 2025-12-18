@@ -16,20 +16,20 @@ function App() {
   const formRef = useRef();
 
   const heroImages = [
-    './PerroPrincipal.png',
-    './GatoPrincipal.png',
-    './LoroPrincipal.png'
+    'PerroPrincipal.png',
+    'GatoPrincipal.png',
+    'LoroPrincipal.png'
   ];
 
   const galleryImages = [
-    './Galeria/G1.jpg',
-    './Galeria/G2.jpg',
-    './Galeria/G3.jpg',
-    './Galeria/G4.jpg',
-    './Galeria/G5.jpg',
-    './Galeria/G6.jpg',
-    './Galeria/G7.jpg',
-    './Galeria/G8.jpg'
+    'Galeria/G1.jpg',
+    'Galeria/G2.jpg',
+    'Galeria/G3.jpg',
+    'Galeria/G4.jpg',
+    'Galeria/G5.jpg',
+    'Galeria/G6.jpg',
+    'Galeria/G7.jpg',
+    'Galeria/G8.jpg'
   ];
 
   useEffect(() => {
@@ -37,7 +37,7 @@ function App() {
       setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
     }, 10000);
     return () => clearInterval(interval);
-  }, []);
+  }, [heroImages.length]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -66,22 +66,22 @@ function App() {
     {
       title: 'Perros',
       description: 'World\'s largest no-kill rescue and adoption organization with hundreds of dogs, cats, puppies and kittens available',
-      image: './PerrosInicio.jpg'
+      image: 'PerrosInicio.jpg'
     },
     {
       title: 'Gatos',
       description: 'World\'s largest no-kill rescue and adoption organization with hundreds of dogs, cats, puppies and kittens available',
-      image: './GatoInicio.jpg'
+      image: 'GatoInicio.jpg'
     },
     {
       title: 'Aves',
       description: 'World\'s largest no-kill rescue and adoption organization with hundreds of dogs, cats, puppies and kittens available',
-      image: './AvesInicio.jpg'
+      image: 'AvesInicio.jpg'
     },
     {
       title: 'Otras Especies',
       description: 'World\'s largest no-kill rescue and adoption organization with hundreds of dogs, cats, puppies and kittens available',
-      image: './OtrasEspeciesInicio.jpg'
+      image: 'OtrasEspeciesInicio.jpg'
     }
   ];
 
@@ -133,16 +133,16 @@ function App() {
             {/* Desktop Social Icons */}
             <div className="hidden md:flex items-center gap-2">
               <a href="https://www.facebook.com/Dogstal/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
-                <img src="./facebook.png" alt="Facebook" className="w-10 h-10 object-cover" />
+                <img src="facebook.png" alt="Facebook" className="w-10 h-10 object-cover" />
               </a>
               <a href="https://www.instagram.com/proanimalacademy/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
-                <img src="./instagram.png" alt="Instagram" className="w-10 h-10 object-cover" />
+                <img src="instagram.png" alt="Instagram" className="w-10 h-10 object-cover" />
               </a>
               <a href="https://www.youtube.com/dogstal" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
-                <img src="./youtube.png" alt="YouTube" className="w-15 h-15 object-cover" />
+                <img src="youtube.png" alt="YouTube" className="w-15 h-15 object-cover" />
               </a>
               <a href="https://www.tiktok.com/@proanimalacademy" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
-                <img src="./tiktok.png" alt="TikTok" className="w-10 h-10 object-cover" />
+                <img src="tiktok.png" alt="TikTok" className="w-10 h-10 object-cover" />
               </a>
             </div>
           </div>
@@ -157,16 +157,16 @@ function App() {
                 <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-semibold text-gray-700 hover:text-amber-400 transition-colors py-2">Contáctanos</a>
                 <div className="flex items-center gap-2 pt-4 border-t border-gray-200">
                   <a href="https://www.facebook.com/Dogstal/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
-                    <img src="./facebook.png" alt="Facebook" className="w-10 h-10 object-cover" />
+                    <img src="facebook.png" alt="Facebook" className="w-10 h-10 object-cover" />
                   </a>
                   <a href="https://www.instagram.com/proanimalacademy/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
-                    <img src="./instagram.png" alt="Instagram" className="w-10 h-10 object-cover" />
+                    <img src="instagram.png" alt="Instagram" className="w-10 h-10 object-cover" />
                   </a>
                   <a href="https://www.youtube.com/dogstal" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
-                    <img src="./youtube.png" alt="YouTube" className="w-15 h-15 object-cover" />
+                    <img src="youtube.png" alt="YouTube" className="w-15 h-15 object-cover" />
                   </a>
                   <a href="https://www.tiktok.com/@proanimalacademy" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
-                    <img src="./tiktok.png" alt="TikTok" className="w-10 h-10 object-cover" />
+                    <img src="tiktok.png" alt="TikTok" className="w-10 h-10 object-cover" />
                   </a>
                 </div>
               </nav>
@@ -455,16 +455,16 @@ function App() {
               <span className="text-sm font-semibold text-gray-400">Siguenos en :</span>
               <div className="flex gap-2">
                 <a href="https://www.facebook.com/Dogstal/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
-                  <img src="./facebook.png" alt="Facebook" className="w-10 h-10 object-cover" />
+                  <img src="facebook.png" alt="Facebook" className="w-10 h-10 object-cover" />
                 </a>
                 <a href="https://www.instagram.com/proanimalacademy/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
-                  <img src="./instagram.png" alt="Instagram" className="w-10 h-10 object-cover" />
+                  <img src="instagram.png" alt="Instagram" className="w-10 h-10 object-cover" />
                 </a>
                 <a href="https://www.youtube.com/dogstal" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
-                  <img src="./youtube.png" alt="YouTube" className="w-15 h-15 object-cover" />
+                  <img src="youtube.png" alt="YouTube" className="w-15 h-15 object-cover" />
                 </a>
                 <a href="https://www.tiktok.com/@proanimalacademy" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
-                  <img src="./tiktok.png" alt="TikTok" className="w-10 h-10 object-cover" />
+                  <img src="tiktok.png" alt="TikTok" className="w-10 h-10 object-cover" />
                 </a>
               </div>
             </div>
@@ -478,7 +478,7 @@ function App() {
         className="fixed bottom-4 right-4 z-40 w-20 h-20 rounded-full overflow-hidden transition-all duration-300 hover:scale-125 shadow-lg"
       >
         <img 
-          src="./Retradogs.png" 
+          src="Retradogs.png" 
           alt="Retratadogs" 
           className="w-full h-full object-cover"
         />
