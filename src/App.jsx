@@ -6,11 +6,25 @@ function App() {
   const [currentPartner, setCurrentPartner] = useState(0);
   const [openFaq, setOpenFaq] = useState(null);
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
+  const [isRetratadogsOpen, setIsRetratadogsOpen] = useState(false);
+  const [currentGalleryImage, setCurrentGalleryImage] = useState(0);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const heroImages = [
     './PerroPrincipal.png',
     './GatoPrincipal.png',
     './LoroPrincipal.png'
+  ];
+
+  const galleryImages = [
+    './Galeria/G1.jpg',
+    './Galeria/G2.jpg',
+    './Galeria/G3.jpg',
+    './Galeria/G4.jpg',
+    './Galeria/G5.jpg',
+    './Galeria/G6.jpg',
+    './Galeria/G7.jpg',
+    './Galeria/G8.jpg'
   ];
 
   useEffect(() => {
@@ -77,7 +91,7 @@ function App() {
             </nav>
             <div className="hidden md:flex items-center gap-2">
               <a href="https://www.facebook.com/Dogstal/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
-                <img src="./facebook.png" alt="Facebook" className="w-15 h-15 object-cover" />
+                <img src="./facebook.png" alt="Facebook" className="w-10 h-10 object-cover" />
               </a>
               <a href="https://www.instagram.com/proanimalacademy/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
                 <img src="./instagram.png" alt="Instagram" className="w-10 h-10 object-cover" />
@@ -356,7 +370,7 @@ function App() {
               <span className="text-sm font-semibold text-gray-400">Siguenos en :</span>
               <div className="flex gap-2">
                 <a href="https://www.facebook.com/Dogstal/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
-                  <img src="./facebook.png" alt="Facebook" className="w-15 h-15 object-cover" />
+                  <img src="./facebook.png" alt="Facebook" className="w-10 h-10 object-cover" />
                 </a>
                 <a href="https://www.instagram.com/proanimalacademy/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
                   <img src="./instagram.png" alt="Instagram" className="w-10 h-10 object-cover" />
@@ -372,6 +386,142 @@ function App() {
           </div>
         </div>
       </footer>
+
+      {/* Floating Retratadogs Button */}
+      <button
+        onClick={() => setIsRetratadogsOpen(true)}
+        className="fixed bottom-4 right-4 z-40 w-20 h-20 rounded-full overflow-hidden transition-all duration-300 hover:scale-125 shadow-lg"
+      >
+        <img 
+          src="./Retradogs.png" 
+          alt="Retratadogs" 
+          className="w-full h-full object-cover"
+        />
+      </button>
+
+      {/* Retratadogs Modal */}
+      {isRetratadogsOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+          <div className="relative bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            {/* Close Button */}
+            <button
+              onClick={() => setIsRetratadogsOpen(false)}
+              className="absolute top-4 right-4 w-10 h-10 bg-gray-900 hover:bg-gray-800 text-white rounded-full flex items-center justify-center text-2xl font-bold transition-all hover:scale-110 z-10"
+            >
+              ×
+            </button>
+
+            {/* Content */}
+            <div className="p-8 md:p-12">
+              <div className="text-center mb-8">
+                <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Retratadogs</h2>
+                <p className="text-xl md:text-2xl text-amber-500 italic font-semibold mb-6">
+                  no solo es un retrato,<br />
+                  es su huella en el tiempo
+                </p>
+                <div className="h-1 w-32 bg-gradient-to-r from-amber-400 to-amber-500 mx-auto mb-8"></div>
+                <p className="text-gray-700 text-lg leading-relaxed max-w-3xl mx-auto">
+                  En Retratadogs transformamos momentos en recuerdos eternos. Nos especializamos en retratos personalizados de perros y gatos, resaltando su esencia y personalidad en cada imagen. Ofrecemos sesiones en bazares y a domicilio, adaptándonos a su entorno y comodidad. Creemos que nuestros amigos peludos son más que mascotas: son familia, y merecen ser celebrados con una obra de arte que inmortalice su historia.
+                </p>
+              </div>
+
+              {/* Interactive Gallery */}
+              <div className="space-y-6">
+                {/* Main Carousel */}
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-gray-800 to-gray-900">
+                  <div className="aspect-[4/3] relative">
+                    <img 
+                      src={galleryImages[currentGalleryImage]} 
+                      alt={`Retrato ${currentGalleryImage + 1}`}
+                      className="w-full h-full object-contain cursor-pointer transition-transform duration-300 hover:scale-105"
+                      onClick={() => setSelectedImage(currentGalleryImage)}
+                    />
+                  </div>
+                  
+                  {/* Navigation Arrows */}
+                  <button
+                    onClick={() => setCurrentGalleryImage((prev) => (prev - 1 + galleryImages.length) % galleryImages.length)}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center text-gray-900 text-2xl font-bold shadow-lg transition-all hover:scale-110"
+                  >
+                    ‹
+                  </button>
+                  <button
+                    onClick={() => setCurrentGalleryImage((prev) => (prev + 1) % galleryImages.length)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center text-gray-900 text-2xl font-bold shadow-lg transition-all hover:scale-110"
+                  >
+                    ›
+                  </button>
+
+                  {/* Image Counter */}
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 text-white px-4 py-2 rounded-full text-sm font-semibold">
+                    {currentGalleryImage + 1} / {galleryImages.length}
+                  </div>
+                </div>
+
+                {/* Thumbnail Grid */}
+                <div className="grid grid-cols-4 gap-3">
+                  {galleryImages.map((image, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentGalleryImage(index)}
+                      className={`aspect-square rounded-lg overflow-hidden transition-all duration-300 ${
+                        index === currentGalleryImage 
+                          ? 'ring-4 ring-amber-500 scale-95 shadow-lg' 
+                          : 'hover:ring-2 hover:ring-amber-300 hover:scale-95 opacity-70 hover:opacity-100'
+                      }`}
+                    >
+                      <img 
+                        src={image} 
+                        alt={`Miniatura ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Fullscreen Image Viewer */}
+      {selectedImage !== null && (
+        <div 
+          className="fixed inset-0 z-[60] bg-black/95 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={() => setSelectedImage(null)}
+        >
+          <button
+            onClick={() => setSelectedImage(null)}
+            className="absolute top-4 right-4 w-12 h-12 bg-white hover:bg-gray-100 text-gray-900 rounded-full flex items-center justify-center text-3xl font-bold transition-all hover:scale-110 z-10"
+          >
+            ×
+          </button>
+          <img 
+            src={galleryImages[selectedImage]} 
+            alt={`Retrato fullscreen ${selectedImage + 1}`}
+            className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          />
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedImage((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+            }}
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-14 h-14 bg-white/90 hover:bg-white rounded-full flex items-center justify-center text-gray-900 text-3xl font-bold shadow-lg transition-all hover:scale-110"
+          >
+            ‹
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedImage((prev) => (prev + 1) % galleryImages.length);
+            }}
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-14 h-14 bg-white/90 hover:bg-white rounded-full flex items-center justify-center text-gray-900 text-3xl font-bold shadow-lg transition-all hover:scale-110"
+          >
+            ›
+          </button>
+        </div>
+      )}
     </div>
   )
 }
