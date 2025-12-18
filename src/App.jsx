@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import emailjs from '@emailjs/browser'
 
 function App() {
   const [currentService, setCurrentService] = useState(0);
@@ -9,6 +10,10 @@ function App() {
   const [isRetratadogsOpen, setIsRetratadogsOpen] = useState(false);
   const [currentGalleryImage, setCurrentGalleryImage] = useState(0);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const formRef = useRef();
 
   const heroImages = [
     './PerroPrincipal.png',
@@ -33,6 +38,29 @@ function App() {
     }, 10000);
     return () => clearInterval(interval);
   }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitMessage('');
+
+    // IMPORTANTE: Reemplaza estos valores con los tuyos de EmailJS
+    const SERVICE_ID = 'service_xja9k0e';
+    const TEMPLATE_ID = 'template_vtxpk9m'; // Obtenlo de EmailJS
+    const PUBLIC_KEY = 'Ti4-S06KAacT1w-Vq'; // Obtenlo de EmailJS
+
+    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY)
+      .then((result) => {
+        console.log('Email enviado:', result.text);
+        setSubmitMessage('¡Mensaje enviado con éxito! Te contactaremos pronto.');
+        formRef.current.reset();
+        setIsSubmitting(false);
+      }, (error) => {
+        console.log('Error al enviar:', error.text);
+        setSubmitMessage('Hubo un error al enviar el mensaje. Por favor intenta de nuevo.');
+        setIsSubmitting(false);
+      });
+  };
 
   const services = [
     {
@@ -62,33 +90,47 @@ function App() {
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            <div className="flex items-center gap-3">
+          <div className="flex items-center justify-between h-16 md:h-20">
+            <div className="flex items-center gap-2 md:gap-3">
               <img 
                 src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,fit=crop,q=95/YyvZoxW9MRc7bKy0/escudo-proanimal-academy-A1aBKpjo5nHeXxll.png"
                 alt="ProAnimal Academy"
-                className="h-16 w-auto object-contain"
+                className="h-12 md:h-16 w-auto object-contain"
               />
-              <div className="text-center md:text-left">
+              <div className="text-left">
                 <div>
-                  <span className="font-bold text-red-600 text-xl font-[Arial,sans-serif]">
+                  <span className="font-bold text-red-600 text-base md:text-xl font-[Arial,sans-serif]">
                     PRO
                   </span>{" "}
-                  <span className="font-bold text-black text-xl font-[Arial,sans-serif]">
+                  <span className="font-bold text-black text-base md:text-xl font-[Arial,sans-serif]">
                     ANIMAL
                   </span>
                 </div>
-                <div className="text-gray-700 text-xs tracking-[4px] font-[Arial,sans-serif] uppercase">
+                <div className="text-gray-700 text-[8px] md:text-xs tracking-[2px] md:tracking-[4px] font-[Arial,sans-serif] uppercase">
                   ACADEMY
                 </div>
               </div>
             </div>
+
+            {/* Mobile Menu Button */}
+            <button 
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 rounded-lg hover:bg-gray-100 transition-colors"
+            >
+              <span className={`w-6 h-0.5 bg-gray-700 transition-all ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+              <span className={`w-6 h-0.5 bg-gray-700 transition-all ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
+              <span className={`w-6 h-0.5 bg-gray-700 transition-all ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+            </button>
+
+            {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-8">
               <a href="#services" className="text-sm font-semibold text-gray-700 hover:text-amber-400 transition-colors">Nuestros servicios</a>
               <a href="#about" className="text-sm font-semibold text-gray-700 hover:text-amber-400 transition-colors">Sobre nosotros</a>
               <a href="#pricing" className="text-sm font-semibold text-gray-700 hover:text-amber-400 transition-colors">Comienza aquí</a>
               <a href="#contact" className="text-sm font-semibold text-gray-700 hover:text-amber-400 transition-colors">Contáctanos</a>
             </nav>
+
+            {/* Desktop Social Icons */}
             <div className="hidden md:flex items-center gap-2">
               <a href="https://www.facebook.com/Dogstal/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
                 <img src="./facebook.png" alt="Facebook" className="w-10 h-10 object-cover" />
@@ -104,27 +146,53 @@ function App() {
               </a>
             </div>
           </div>
+
+          {/* Mobile Menu */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden py-4 border-t border-gray-200">
+              <nav className="flex flex-col gap-4">
+                <a href="#services" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-semibold text-gray-700 hover:text-amber-400 transition-colors py-2">Nuestros servicios</a>
+                <a href="#about" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-semibold text-gray-700 hover:text-amber-400 transition-colors py-2">Sobre nosotros</a>
+                <a href="#pricing" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-semibold text-gray-700 hover:text-amber-400 transition-colors py-2">Comienza aquí</a>
+                <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-semibold text-gray-700 hover:text-amber-400 transition-colors py-2">Contáctanos</a>
+                <div className="flex items-center gap-2 pt-4 border-t border-gray-200">
+                  <a href="https://www.facebook.com/Dogstal/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
+                    <img src="./facebook.png" alt="Facebook" className="w-10 h-10 object-cover" />
+                  </a>
+                  <a href="https://www.instagram.com/proanimalacademy/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
+                    <img src="./instagram.png" alt="Instagram" className="w-10 h-10 object-cover" />
+                  </a>
+                  <a href="https://www.youtube.com/dogstal" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
+                    <img src="./youtube.png" alt="YouTube" className="w-15 h-15 object-cover" />
+                  </a>
+                  <a href="https://www.tiktok.com/@proanimalacademy" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
+                    <img src="./tiktok.png" alt="TikTok" className="w-10 h-10 object-cover" />
+                  </a>
+                </div>
+              </nav>
+            </div>
+          )}
         </div>
       </header>
 
       {/* Hero Section - Extended */}
-      <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-visible pb-60">
+      <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-visible pb-40 md:pb-60">
         <div className="absolute inset-0 bg-gradient-to-r from-amber-500/10 via-transparent to-amber-500/5"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8 relative z-10">
-              <p className="text-amber-400 text-sm font-bold uppercase tracking-widest">— Conoce PRO ANIMAL ACADEMY</p>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 lg:py-28">
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
+            <div className="space-y-4 md:space-y-8 relative z-10 text-center lg:text-left">
+              <p className="text-amber-400 text-xs md:text-sm font-bold uppercase tracking-widest">— Conoce PRO ANIMAL ACADEMY</p>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
                 Soluciones en <span className="text-amber-400 relative inline-block">Conducta </span> animal.
               </h1>
-              <p className="text-lg text-gray-300 leading-relaxed">
+              <p className="text-base md:text-lg text-gray-300 leading-relaxed">
               Adiestramiento y consultoría de conducta animal con bases en ciencia del comportamiento aplicado con métodos libres de miedo y dolor.
               </p>
 
             </div>
             <div className="flex justify-center lg:justify-end">
-              <div className="relative w-64 h-64 lg:w-80 lg:h-80 cursor-pointer">
-                <div className="absolute inset-0 rounded-full shadow-2xl ring-8 ring-white/10 bg-gradient-to-br from-gray-700 via-gray-800 to-gray-900 overflow-hidden group">
+              <div className="relative w-48 h-48 sm:w-64 sm:h-64 lg:w-80 lg:h-80 cursor-pointer">
+                <div className="absolute inset-0 rounded-full shadow-2xl ring-4 md:ring-8 ring-white/10 bg-gradient-to-br from-gray-700 via-gray-800 to-gray-900 overflow-hidden group">
                   {heroImages.map((image, index) => (
                     <img 
                       key={index}
@@ -149,17 +217,17 @@ function App() {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-20 bg-transparent -mt-80 relative z-10 scroll-mt-20">
+      <section id="services" className="py-12 md:py-20 bg-transparent -mt-60 md:-mt-80 relative z-10 scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-amber-400 text-sm font-bold uppercase tracking-widest mb-3">— Nuestros servicios</p>
-            <h2 className="text-4xl lg:text-5xl font-extrabold text-white">Especialidades en Conducta Animal</h2>
+          <div className="text-center mb-8 md:mb-12">
+            <p className="text-amber-400 text-xs md:text-sm font-bold uppercase tracking-widest mb-2 md:mb-3">— Nuestros servicios</p>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white">Especialidades en Conducta Animal</h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {services.map((service, index) => (
               <div
                 key={index}
-                className="group relative h-96 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer"
+                className="group relative h-64 sm:h-80 md:h-96 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer"
               >
                 {/* Imagen con efecto zoom */}
                 <img 
@@ -172,8 +240,8 @@ function App() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
                 
                 {/* Título (siempre visible) */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h3 className="text-2xl font-bold leading-tight">{service.title}</h3>
+                <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 text-white">
+                  <h3 className="text-xl md:text-2xl font-bold leading-tight">{service.title}</h3>
                 </div>
               </div>
             ))}
@@ -306,31 +374,48 @@ function App() {
                   Siéntete libre de contactarnos para cualquier consulta.
                 </p>
               </div>
-              <div className="space-y-4">
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
                 <input 
                   type="text" 
+                  name="from_name"
                   placeholder="Nombre completo*" 
+                  required
                   className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-amber-400 focus:ring-2 focus:ring-amber-200 outline-none transition-all"
                 />
                 <input 
                   type="tel" 
+                  name="phone"
                   placeholder="Teléfono*" 
+                  required
                   className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-amber-400 focus:ring-2 focus:ring-amber-200 outline-none transition-all"
                 />
                 <input 
                   type="email" 
+                  name="from_email"
                   placeholder="Correo electrónico*" 
+                  required
                   className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-amber-400 focus:ring-2 focus:ring-amber-200 outline-none transition-all"
                 />
                 <textarea 
+                  name="message"
                   placeholder="Tu mensaje" 
                   rows="5"
+                  required
                   className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-amber-400 focus:ring-2 focus:ring-amber-200 outline-none transition-all resize-none"
                 ></textarea>
-                <button className="w-full px-8 py-4 bg-gray-900 hover:bg-gray-800 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
-                  Enviar mensaje
+                <button 
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full px-8 py-4 bg-gray-900 hover:bg-gray-800 disabled:bg-gray-400 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? 'Enviando...' : 'Enviar mensaje'}
                 </button>
-              </div>
+                {submitMessage && (
+                  <p className={`text-center font-semibold ${submitMessage.includes('éxito') ? 'text-green-600' : 'text-red-600'}`}>
+                    {submitMessage}
+                  </p>
+                )}
+              </form>
             </div>
           </div>
         </div>
