@@ -1,0 +1,91 @@
+<div style="font-family: system-ui, sans-serif, Arial; font-size: 12px; max-width: 600px; margin: 0 auto;">
+  <div style="background-color: #f8f9fa; padding: 20px; border-radius: 10px 10px 0 0;">
+    <h2 style="color: #2c3e50; margin: 0; font-size: 24px;">Nuevo Mensaje de Contacto</h2>
+    <p style="color: #7f8c8d; margin: 10px 0 0 0; font-size: 14px;">ProAnimal Academy</p>
+  </div>
+  
+  <div style="background-color: #ffffff; padding: 30px; border: 1px solid #e0e0e0;">
+    <p style="color: #2c3e50; font-size: 14px; margin-bottom: 25px;">
+      Has recibido un nuevo mensaje de <strong>{{from_name}}</strong>. Por favor responde a la brevedad posible.
+    </p>
+    
+    <table role="presentation" style="width: 100%; margin-bottom: 20px; border-collapse: collapse;">
+      <tr>
+        <td style="padding: 15px; background-color: #f8f9fa; border-radius: 8px;">
+          <table role="presentation" style="width: 100%;">
+            <tr>
+              <td style="vertical-align: top; width: 60px;">
+                <div
+                  style="
+                    padding: 10px;
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    border-radius: 8px;
+                    font-size: 28px;
+                    text-align: center;
+                  "
+                  role="img"
+                >
+                  👤
+                </div>
+              </td>
+              <td style="vertical-align: top; padding-left: 15px;">
+                <div style="margin-bottom: 15px;">
+                  <div style="color: #2c3e50; font-size: 18px; font-weight: bold; margin-bottom: 5px;">
+                    {{from_name}}
+                  </div>
+                  <div style="color: #95a5a6; font-size: 12px;">
+                    {{time}}
+                  </div>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                  <div style="color: #7f8c8d; font-size: 11px; text-transform: uppercase; font-weight: bold; margin-bottom: 5px;">
+                    📧 Correo Electrónico
+                  </div>
+                  <div style="color: #2c3e50; font-size: 14px;">
+                    <a href="mailto:{{from_email}}" style="color: #3498db; text-decoration: none;">{{from_email}}</a>
+                  </div>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                  <div style="color: #7f8c8d; font-size: 11px; text-transform: uppercase; font-weight: bold; margin-bottom: 5px;">
+                    📱 Teléfono
+                  </div>
+                  <div style="color: #2c3e50; font-size: 14px;">
+                    <a href="tel:{{phone}}" style="color: #3498db; text-decoration: none;">{{phone}}</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    
+    <div style="margin-top: 25px; padding-top: 20px; border-top: 2px dashed #e0e0e0;">
+      <div style="color: #7f8c8d; font-size: 11px; text-transform: uppercase; font-weight: bold; margin-bottom: 10px;">
+        💬 Mensaje
+      </div>
+      <div style="
+        color: #2c3e50; 
+        font-size: 15px; 
+        line-height: 1.6; 
+        background-color: #f8f9fa; 
+        padding: 15px; 
+        border-radius: 8px;
+        border-left: 4px solid #667eea;
+      ">
+        {{message}}
+      </div>
+    </div>
+  </div>
+  
+  <div style="background-color: #2c3e50; padding: 20px; border-radius: 0 0 10px 10px; text-align: center;">
+    <p style="color: #ecf0f1; margin: 0; font-size: 12px;">
+      Este mensaje fue enviado desde el formulario de contacto de ProAnimal Academy
+    </p>
+    <p style="color: #95a5a6; margin: 10px 0 0 0; font-size: 11px;">
+      Por favor responde directamente a <a href="mailto:{{from_email}}" style="color: #3498db; text-decoration: none;">{{from_email}}</a>
+    </p>
+  </div>
+</div>

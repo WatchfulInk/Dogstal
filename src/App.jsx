@@ -1,5 +1,18 @@
-import React, { useState, useEffect, useRef } from 'react'
-import emailjs from '@emailjs/browser'
+import React, { useState, useEffect } from 'react'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+import FormPerros from './components/FormPerros';
+import FormGatos from './components/FormGatos';
+import FormAves from './components/FormAves';
+import FormOtrasEspecies from './components/FormOtrasEspecies';
+import FormGeneral from './components/FormGeneral';
+import ServiceCard from './components/ServiceCard'
+
+// Helper function to get the correct asset path
+const getAssetPath = (path) => {
+  const base = import.meta.env.BASE_URL || '/';
+  return `${base}${path}`.replace(/\/+/g, '/');
+};
 
 function App() {
   const [currentService, setCurrentService] = useState(0);
@@ -10,26 +23,26 @@ function App() {
   const [isRetratadogsOpen, setIsRetratadogsOpen] = useState(false);
   const [currentGalleryImage, setCurrentGalleryImage] = useState(0);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState('');
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const formRef = useRef();
+  const [isPerrosFormOpen, setIsPerrosFormOpen] = useState(false);
+  const [isGatosFormOpen, setIsGatosFormOpen] = useState(false);
+  const [isAvesFormOpen, setIsAvesFormOpen] = useState(false);
+  const [isOtrasEspeciesFormOpen, setIsOtrasEspeciesFormOpen] = useState(false);
 
   const heroImages = [
-    'PerroPrincipal.png',
-    'GatoPrincipal.png',
-    'LoroPrincipal.png'
+    getAssetPath('PerroPrincipal.png'),
+    getAssetPath('GatoPrincipal.png'),
+    getAssetPath('LoroPrincipal.png')
   ];
 
   const galleryImages = [
-    'Galeria/G1.jpg',
-    'Galeria/G2.jpg',
-    'Galeria/G3.jpg',
-    'Galeria/G4.jpg',
-    'Galeria/G5.jpg',
-    'Galeria/G6.jpg',
-    'Galeria/G7.jpg',
-    'Galeria/G8.jpg'
+    getAssetPath('Galeria/G1.jpg'),
+    getAssetPath('Galeria/G2.jpg'),
+    getAssetPath('Galeria/G3.jpg'),
+    getAssetPath('Galeria/G4.jpg'),
+    getAssetPath('Galeria/G5.jpg'),
+    getAssetPath('Galeria/G6.jpg'),
+    getAssetPath('Galeria/G7.jpg'),
+    getAssetPath('Galeria/G8.jpg')
   ];
 
   useEffect(() => {
@@ -39,141 +52,33 @@ function App() {
     return () => clearInterval(interval);
   }, [heroImages.length]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitMessage('');
-
-    // IMPORTANTE: Reemplaza estos valores con los tuyos de EmailJS
-    const SERVICE_ID = 'service_xja9k0e';
-    const TEMPLATE_ID = 'template_vtxpk9m'; // Obtenlo de EmailJS
-    const PUBLIC_KEY = 'Ti4-S06KAacT1w-Vq'; // Obtenlo de EmailJS
-
-    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY)
-      .then((result) => {
-        console.log('Email enviado:', result.text);
-        setSubmitMessage('¡Mensaje enviado con éxito! Te contactaremos pronto.');
-        formRef.current.reset();
-        setIsSubmitting(false);
-      }, (error) => {
-        console.log('Error al enviar:', error.text);
-        setSubmitMessage('Hubo un error al enviar el mensaje. Por favor intenta de nuevo.');
-        setIsSubmitting(false);
-      });
-  };
-
   const services = [
     {
       title: 'Perros',
       description: 'World\'s largest no-kill rescue and adoption organization with hundreds of dogs, cats, puppies and kittens available',
-      image: 'PerrosInicio.jpg'
+      image: getAssetPath('PerrosInicio.jpg')
     },
     {
       title: 'Gatos',
       description: 'World\'s largest no-kill rescue and adoption organization with hundreds of dogs, cats, puppies and kittens available',
-      image: 'GatoInicio.jpg'
+      image: getAssetPath('GatoInicio.jpg')
     },
     {
       title: 'Aves',
       description: 'World\'s largest no-kill rescue and adoption organization with hundreds of dogs, cats, puppies and kittens available',
-      image: 'AvesInicio.jpg'
+      image: getAssetPath('AvesInicio.jpg')
     },
     {
       title: 'Otras Especies',
       description: 'World\'s largest no-kill rescue and adoption organization with hundreds of dogs, cats, puppies and kittens available',
-      image: 'OtrasEspeciesInicio.jpg'
+      image: getAssetPath('OtrasEspeciesInicio.jpg')
     }
   ];
 
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 md:h-20">
-            <div className="flex items-center gap-2 md:gap-3">
-              <img 
-                src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,fit=crop,q=95/YyvZoxW9MRc7bKy0/escudo-proanimal-academy-A1aBKpjo5nHeXxll.png"
-                alt="ProAnimal Academy"
-                className="h-12 md:h-16 w-auto object-contain"
-              />
-              <div className="text-left">
-                <div>
-                  <span className="font-bold text-red-600 text-base md:text-xl font-[Arial,sans-serif]">
-                    PRO
-                  </span>{" "}
-                  <span className="font-bold text-black text-base md:text-xl font-[Arial,sans-serif]">
-                    ANIMAL
-                  </span>
-                </div>
-                <div className="text-gray-700 text-[8px] md:text-xs tracking-[2px] md:tracking-[4px] font-[Arial,sans-serif] uppercase">
-                  ACADEMY
-                </div>
-              </div>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button 
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 rounded-lg hover:bg-gray-100 transition-colors"
-            >
-              <span className={`w-6 h-0.5 bg-gray-700 transition-all ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-              <span className={`w-6 h-0.5 bg-gray-700 transition-all ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
-              <span className={`w-6 h-0.5 bg-gray-700 transition-all ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
-            </button>
-
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-8">
-              <a href="#services" className="text-sm font-semibold text-gray-700 hover:text-amber-400 transition-colors">Nuestros servicios</a>
-              <a href="#about" className="text-sm font-semibold text-gray-700 hover:text-amber-400 transition-colors">Sobre nosotros</a>
-              <a href="#pricing" className="text-sm font-semibold text-gray-700 hover:text-amber-400 transition-colors">Comienza aquí</a>
-              <a href="#contact" className="text-sm font-semibold text-gray-700 hover:text-amber-400 transition-colors">Contáctanos</a>
-            </nav>
-
-            {/* Desktop Social Icons */}
-            <div className="hidden md:flex items-center gap-2">
-              <a href="https://www.facebook.com/Dogstal/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
-                <img src="facebook.png" alt="Facebook" className="w-10 h-10 object-cover" />
-              </a>
-              <a href="https://www.instagram.com/proanimalacademy/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
-                <img src="instagram.png" alt="Instagram" className="w-10 h-10 object-cover" />
-              </a>
-              <a href="https://www.youtube.com/dogstal" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
-                <img src="youtube.png" alt="YouTube" className="w-15 h-15 object-cover" />
-              </a>
-              <a href="https://www.tiktok.com/@proanimalacademy" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
-                <img src="tiktok.png" alt="TikTok" className="w-10 h-10 object-cover" />
-              </a>
-            </div>
-          </div>
-
-          {/* Mobile Menu */}
-          {isMobileMenuOpen && (
-            <div className="md:hidden py-4 border-t border-gray-200">
-              <nav className="flex flex-col gap-4">
-                <a href="#services" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-semibold text-gray-700 hover:text-amber-400 transition-colors py-2">Nuestros servicios</a>
-                <a href="#about" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-semibold text-gray-700 hover:text-amber-400 transition-colors py-2">Sobre nosotros</a>
-                <a href="#pricing" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-semibold text-gray-700 hover:text-amber-400 transition-colors py-2">Comienza aquí</a>
-                <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-semibold text-gray-700 hover:text-amber-400 transition-colors py-2">Contáctanos</a>
-                <div className="flex items-center gap-2 pt-4 border-t border-gray-200">
-                  <a href="https://www.facebook.com/Dogstal/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
-                    <img src="facebook.png" alt="Facebook" className="w-10 h-10 object-cover" />
-                  </a>
-                  <a href="https://www.instagram.com/proanimalacademy/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
-                    <img src="instagram.png" alt="Instagram" className="w-10 h-10 object-cover" />
-                  </a>
-                  <a href="https://www.youtube.com/dogstal" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
-                    <img src="youtube.png" alt="YouTube" className="w-15 h-15 object-cover" />
-                  </a>
-                  <a href="https://www.tiktok.com/@proanimalacademy" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
-                    <img src="tiktok.png" alt="TikTok" className="w-10 h-10 object-cover" />
-                  </a>
-                </div>
-              </nav>
-            </div>
-          )}
-        </div>
-      </header>
+      <Navbar getAssetPath={getAssetPath} />
 
       {/* Hero Section - Extended */}
       <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-visible pb-40 md:pb-60">
@@ -225,25 +130,16 @@ function App() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {services.map((service, index) => (
-              <div
+              <ServiceCard
                 key={index}
-                className="group relative h-64 sm:h-80 md:h-96 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer"
-              >
-                {/* Imagen con efecto zoom */}
-                <img 
-                  src={service.image} 
-                  alt={service.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                
-                {/* Overlay oscuro */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
-                
-                {/* Título (siempre visible) */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 text-white">
-                  <h3 className="text-xl md:text-2xl font-bold leading-tight">{service.title}</h3>
-                </div>
-              </div>
+                service={service}
+                onClick={() => {
+                  if (index === 0) setIsPerrosFormOpen(true);
+                  else if (index === 1) setIsGatosFormOpen(true);
+                  else if (index === 2) setIsAvesFormOpen(true);
+                  else if (index === 3) setIsOtrasEspeciesFormOpen(true);
+                }}
+              />
             ))}
           </div>
         </div>
@@ -293,9 +189,6 @@ function App() {
                   </div>
                 </li>
               </ul>
-              <button className="px-8 py-4 bg-amber-400 hover:bg-amber-500 text-gray-900 font-bold rounded-xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
-                Conoce más
-              </button>
             </div>
           </div>
         </div>
@@ -323,9 +216,6 @@ function App() {
               <p className="text-gray-600 mb-6 leading-relaxed">
                 Completa éste formulario para obtener información general de tu caso y posteriormente ponernos en contacto contigo para recavar mayor información y enviarte una propuesta de trabajo.
               </p>
-              <button className="w-full px-6 py-3 bg-amber-400 hover:bg-amber-500 text-gray-900 font-bold rounded-xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
-                Llenar formulario
-              </button>
             </div>
 
             {/* Card 2 - Manos a la obra */}
@@ -338,9 +228,6 @@ function App() {
               <p className="text-gray-600 mb-6 leading-relaxed">
                 Después de recibir la propuesta de trabajo podemos agendar las citas en el horario que mejor te convenga para comenzar a crear resultados.
               </p>
-              <button className="w-full px-6 py-3 bg-amber-400 hover:bg-amber-500 text-gray-900 font-bold rounded-xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
-                Agendar cita
-              </button>
             </div>
 
             {/* Card 3 - Tienes dudas */}
@@ -353,9 +240,6 @@ function App() {
               <p className="text-gray-600 mb-6 leading-relaxed">
                 Estamos a tus órdenes para resolver cualquier duda
               </p>
-              <button className="w-full px-6 py-3 bg-amber-400 hover:bg-amber-500 text-gray-900 font-bold rounded-xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
-                Contactar
-              </button>
             </div>
           </div>
         </div>
@@ -366,111 +250,13 @@ function App() {
       <section id="contact" className="py-20 bg-white scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-xl mx-auto">
-            <div className="bg-gray-50 rounded-2xl p-8 shadow-xl border-2 border-gray-100">
-              <div className="text-center mb-8">
-                <p className="text-amber-500 text-sm font-bold uppercase tracking-widest mb-3">— Contáctanos</p>
-                <h2 className="text-3xl lg:text-4xl font-extrabold text-gray-900 mb-4">¿Tienes Preguntas?</h2>
-                <p className="text-gray-600 leading-relaxed">
-                  Siéntete libre de contactarnos para cualquier consulta.
-                </p>
-              </div>
-              <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
-                <input 
-                  type="text" 
-                  name="from_name"
-                  placeholder="Nombre completo*" 
-                  required
-                  className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-amber-400 focus:ring-2 focus:ring-amber-200 outline-none transition-all"
-                />
-                <input 
-                  type="tel" 
-                  name="phone"
-                  placeholder="Teléfono*" 
-                  required
-                  className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-amber-400 focus:ring-2 focus:ring-amber-200 outline-none transition-all"
-                />
-                <input 
-                  type="email" 
-                  name="from_email"
-                  placeholder="Correo electrónico*" 
-                  required
-                  className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-amber-400 focus:ring-2 focus:ring-amber-200 outline-none transition-all"
-                />
-                <textarea 
-                  name="message"
-                  placeholder="Tu mensaje" 
-                  rows="5"
-                  required
-                  className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-amber-400 focus:ring-2 focus:ring-amber-200 outline-none transition-all resize-none"
-                ></textarea>
-                <button 
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full px-8 py-4 bg-gray-900 hover:bg-gray-800 disabled:bg-gray-400 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 disabled:cursor-not-allowed"
-                >
-                  {isSubmitting ? 'Enviando...' : 'Enviar mensaje'}
-                </button>
-                {submitMessage && (
-                  <p className={`text-center font-semibold ${submitMessage.includes('éxito') ? 'text-green-600' : 'text-red-600'}`}>
-                    {submitMessage}
-                  </p>
-                )}
-              </form>
-            </div>
+            <FormGeneral />
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 border-t border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="flex items-center gap-3">
-              <img 
-                src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,fit=crop,q=95/YyvZoxW9MRc7bKy0/escudo-proanimal-academy-A1aBKpjo5nHeXxll.png"
-                alt="ProAnimal Academy"
-                className="h-16 w-auto object-contain"
-              />
-              <div className="text-center md:text-left">
-                <div>
-                  <span className="font-bold text-red-600 text-xl font-[Arial,sans-serif]">
-                    PRO
-                  </span>{" "}
-                  <span className="font-bold text-white text-xl font-[Arial,sans-serif]">
-                    ANIMAL
-                  </span>
-                </div>
-                <div className="text-gray-400 text-xs tracking-[4px] font-[Arial,sans-serif] uppercase">
-                  ACADEMY
-                </div>
-              </div>
-            </div>
-            <nav className="flex flex-wrap items-center gap-6 text-sm font-semibold text-gray-400">
-              <a href="#services" className="hover:text-amber-400 transition-colors">Nuestros servicios</a>
-              <a href="#about" className="hover:text-amber-400 transition-colors">Sobre nosotros</a>
-              <a href="#pricing" className="hover:text-amber-400 transition-colors">Comienza aquí</a>
-              <a href="#contact" className="hover:text-amber-400 transition-colors">Contáctanos</a>
-            </nav>
-            <div className="flex items-center gap-4">
-              <span className="text-sm font-semibold text-gray-400">Siguenos en :</span>
-              <div className="flex gap-2">
-                <a href="https://www.facebook.com/Dogstal/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
-                  <img src="facebook.png" alt="Facebook" className="w-10 h-10 object-cover" />
-                </a>
-                <a href="https://www.instagram.com/proanimalacademy/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
-                  <img src="instagram.png" alt="Instagram" className="w-10 h-10 object-cover" />
-                </a>
-                <a href="https://www.youtube.com/dogstal" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
-                  <img src="youtube.png" alt="YouTube" className="w-15 h-15 object-cover" />
-                </a>
-                <a href="https://www.tiktok.com/@proanimalacademy" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all hover:scale-110 flex-shrink-0">
-                  <img src="tiktok.png" alt="TikTok" className="w-10 h-10 object-cover" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer getAssetPath={getAssetPath} />
 
       {/* Floating Retratadogs Button */}
       <button
@@ -478,7 +264,7 @@ function App() {
         className="fixed bottom-4 right-4 z-40 w-20 h-20 rounded-full overflow-hidden transition-all duration-300 hover:scale-125 shadow-lg"
       >
         <img 
-          src="Retradogs.png" 
+          src={getAssetPath('Retradogs.png')} 
           alt="Retratadogs" 
           className="w-full h-full object-cover"
         />
@@ -607,6 +393,30 @@ function App() {
           </button>
         </div>
       )}
+
+      {/* Modal Formulario Perros */}
+      <FormPerros 
+        isOpen={isPerrosFormOpen} 
+        onClose={() => setIsPerrosFormOpen(false)} 
+      />
+
+      {/* Modal Formulario Gatos */}
+      <FormGatos 
+        isOpen={isGatosFormOpen} 
+        onClose={() => setIsGatosFormOpen(false)} 
+      />
+
+      {/* Modal Formulario Aves */}
+      <FormAves 
+        isOpen={isAvesFormOpen} 
+        onClose={() => setIsAvesFormOpen(false)} 
+      />
+
+      {/* Modal Formulario Otras Especies */}
+      <FormOtrasEspecies 
+        isOpen={isOtrasEspeciesFormOpen} 
+        onClose={() => setIsOtrasEspeciesFormOpen(false)} 
+      />
     </div>
   )
 }
