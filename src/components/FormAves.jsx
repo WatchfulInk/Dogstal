@@ -1,6 +1,10 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import emailjs from '@emailjs/browser';
 
 const FormAves = ({ isOpen, onClose }) => {
+  const formRef = useRef();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
   const [showAtendidoDetalle, setShowAtendidoDetalle] = useState(false);
   const [showConductasRepetitivasDetalle, setShowConductasRepetitivasDetalle] = useState(false);
   const [showMasAnimalesDetalle, setShowMasAnimalesDetalle] = useState(false);
@@ -15,93 +19,31 @@ const FormAves = ({ isOpen, onClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries());
-    
-    let emailBody = `CONSULTA INICIAL CONDUCTA EN AVES\n\n`;
-    emailBody += `=== DATOS DEL HUMANO ===\n`;
-    emailBody += `Nombre: ${data['nombre']} ${data['apellido']}\n`;
-    if (data['otro-tutor-primero'] || data['otro-tutor-apellido']) {
-      emailBody += `Otro tutor: ${data['otro-tutor-primero']} ${data['otro-tutor-apellido']}\n`;
-    }
-    emailBody += `Teléfono: ${data['telefono']}\n`;
-    emailBody += `Email: ${data['email']}\n`;
-    emailBody += `Dirección: ${data['direccion-linea1']}\n`;
-    if (data['direccion-linea2']) emailBody += `${data['direccion-linea2']}\n`;
-    emailBody += `${data['ciudad']}, ${data['estado']} ${data['codigo-zip']}\n`;
-    emailBody += `${data['pais']}\n`;
-    emailBody += `Referencia: ${data['referencia']}\n\n`;
+    setIsSubmitting(true);
+    setSubmitMessage('');
 
-    emailBody += `=== DATOS DEL AVE ===\n`;
-    emailBody += `Nombre: ${data['nombre-ave']}\n`;
-    emailBody += `Edad: ${data['edad-ave']} ${data['edad-unidad']}\n`;
-    emailBody += `Sexo: ${data['sexo']}\n`;
-    emailBody += `Especie: ${data['especie']}\n`;
-    emailBody += `Peso: ${data['peso']} gramos\n`;
-    emailBody += `Medio de adquisición: ${data['adquisicion']}\n`;
-    emailBody += `Edad de adquisición: ${data['edad-adquisicion']} ${data['edad-adquisicion-unidad']}\n\n`;
+    // Configuración de EmailJS - AGREGAR TU TEMPLATE_ID AQUÍ
+    const SERVICE_ID = 'service_xja9k0e';
+    const TEMPLATE_ID = 'TU_TEMPLATE_ID_AVES'; // REEMPLAZAR CON TU TEMPLATE ID
+    const PUBLIC_KEY = 'Ti4-S06KAacT1w-Vq';
 
-    emailBody += `=== EVOLUCIÓN ===\n`;
-    emailBody += `Motivo de consulta: ${data['motivo-consulta']}\n`;
-    emailBody += `Inicio del problema: ${data['inicio-problema']}\n`;
-    emailBody += `Circunstancias: ${data['circunstancias-problema']}\n`;
-    emailBody += `¿Atendido anteriormente?: ${data['atendido']}\n`;
-    if (data['atendido-detalle-especificar']) {
-      emailBody += `Detalle: ${data['atendido-detalle-especificar']}\n`;
-    }
-    emailBody += `\n`;
-
-    emailBody += `=== OTROS ASPECTOS ===\n`;
-    emailBody += `¿Conductas repetitivas?: ${data['conductas-repetitivas']}\n`;
-    if (data['conductas-repetitivas-especificar']) {
-      emailBody += `Descripción: ${data['conductas-repetitivas-especificar']}\n`;
-    }
-    emailBody += `¿Más animales en casa?: ${data['mas-animales']}\n`;
-    if (data['mas-animales-detalle-especificar']) {
-      emailBody += `Cuántos: ${data['mas-animales-detalle-especificar']}\n`;
-    }
-    emailBody += `Personas en casa: ${data['numero-personas']}\n`;
-    emailBody += `¿Animales anteriores?: ${data['animales-anteriores']}\n`;
-    if (data['animales-anteriores-detalle-especificar']) {
-      emailBody += `Cuáles: ${data['animales-anteriores-detalle-especificar']}\n`;
-    }
-    emailBody += `\n`;
-
-    emailBody += `=== ASPECTOS MÉDICOS ===\n`;
-    emailBody += `¿Condiciones médicas?: ${data['condicion-medica']}\n`;
-    if (data['condicion-medica-detalle-especificar']) {
-      emailBody += `Cuáles: ${data['condicion-medica-detalle-especificar']}\n`;
-    }
-    emailBody += `¿Tratamiento médico?: ${data['tratamiento-medico']}\n`;
-    if (data['tratamiento-medico-detalle-especificar']) {
-      emailBody += `Cuál: ${data['tratamiento-medico-detalle-especificar']}\n`;
-    }
-    emailBody += `\n`;
-
-    emailBody += `=== VIDA DEL AVE ===\n`;
-    emailBody += `Hábitat: ${data['habitat']}\n`;
-    emailBody += `¿Acceso fuera de jaula?: ${data['acceso-jaula']}\n`;
-    if (data['acceso-jaula-detalle-especificar']) {
-      emailBody += `Rutina: ${data['acceso-jaula-detalle-especificar']}\n`;
-    }
-    emailBody += `¿Rutina de vuelo?: ${data['rutina-vuelo']}\n`;
-    if (data['rutina-vuelo-detalle-especificar']) {
-      emailBody += `Descripción: ${data['rutina-vuelo-detalle-especificar']}\n`;
-    }
-    emailBody += `¿Alas recortadas?: ${data['alas-recortadas']}\n`;
-    if (data['alas-recortadas-detalle-especificar']) {
-      emailBody += `Detalles: ${data['alas-recortadas-detalle-especificar']}\n`;
-    }
-    emailBody += `Rutina de alimentación: ${data['rutina-alimentacion']}\n`;
-    emailBody += `Rutina de limpieza: ${data['rutina-limpieza']}\n`;
-    emailBody += `Rutina de interacción: ${data['rutina-interaccion']}\n`;
-    emailBody += `Cambios en la vida: ${data['cambio-vida']}\n\n`;
-
-    emailBody += `=== PRONÓSTICO ===\n`;
-    emailBody += `Objetivos: ${data['objetivos-consulta']}\n`;
-
-    const mailtoLink = `mailto:proanimalacademy@gmail.com?subject=Consulta Inicial Conducta en Aves - ${data['nombre-ave']}&body=${encodeURIComponent(emailBody)}`;
-    window.location.href = mailtoLink;
+    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY)
+      .then((result) => {
+        console.log('Email enviado:', result.text);
+        setSubmitMessage('¡Consulta enviada con éxito! Te contactaremos pronto.');
+        formRef.current.reset();
+        setIsSubmitting(false);
+        
+        // Cerrar modal después de 3 segundos
+        setTimeout(() => {
+          onClose();
+          setSubmitMessage('');
+        }, 3000);
+      }, (error) => {
+        console.log('Error al enviar:', error.text);
+        setSubmitMessage('Hubo un error al enviar la consulta. Por favor intenta de nuevo.');
+        setIsSubmitting(false);
+      });
   };
 
   return (
@@ -119,7 +61,7 @@ const FormAves = ({ isOpen, onClose }) => {
             Consulta Inicial Conducta en Aves
           </h1>
 
-          <form onSubmit={handleSubmit} className="space-y-8">
+          <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">
             {/* Datos del Humano */}
             <section>
               <h2 className="text-2xl font-bold mb-6 text-gray-700 border-b-2 border-gray-300 pb-2">
@@ -994,10 +936,27 @@ const FormAves = ({ isOpen, onClose }) => {
 
             <button
               type="submit"
-              className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-6 rounded-md text-lg transition duration-300"
+              disabled={isSubmieuniontting}
+              className={`w-full font-bold py-4 px-6 rounded-md text-lg transition duration-300 ${
+                isSubmitting
+                  ? 'bg-gray-400 cursor-not-allowed'
+                  : 'bg-green-600 hover:bg-green-700 text-white'
+              }`}
             >
-              Enviar
+              {isSubmitting ? 'Enviando...' : 'Enviar Consulta'}
             </button>
+
+            {submitMessage && (
+              <div
+                className={`mt-4 p-4 rounded-md text-center font-semibold ${
+                  submitMessage.includes('éxito')
+                    ? 'bg-green-100 text-green-800'
+                    : 'bg-red-100 text-red-800'
+                }`}
+              >
+                {submitMessage}
+              </div>
+            )}
           </form>
         </div>
       </div>

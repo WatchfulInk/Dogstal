@@ -1,7 +1,41 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
+import emailjs from '@emailjs/browser';
 
 const FormGatos = ({ isOpen, onClose }) => {
+  const formRef = useRef();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
+
   if (!isOpen) return null;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitMessage('');
+
+    // Configuración de EmailJS - AGREGAR TU TEMPLATE_ID AQUÍ
+    const SERVICE_ID = 'service_xja9k0e';
+    const TEMPLATE_ID = 'TU_TEMPLATE_ID_GATOS'; // REEMPLAZAR CON TU TEMPLATE ID
+    const PUBLIC_KEY = 'Ti4-S06KAacT1w-Vq';
+
+    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY)
+      .then((result) => {
+        console.log('Email enviado:', result.text);
+        setSubmitMessage('¡Consulta enviada con éxito! Te contactaremos pronto.');
+        formRef.current.reset();
+        setIsSubmitting(false);
+        
+        // Cerrar modal después de 3 segundos
+        setTimeout(() => {
+          onClose();
+          setSubmitMessage('');
+        }, 3000);
+      }, (error) => {
+        console.log('Error al enviar:', error.text);
+        setSubmitMessage('Hubo un error al enviar la consulta. Por favor intenta de nuevo.');
+        setIsSubmitting(false);
+      });
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 overflow-y-auto">
@@ -18,7 +52,7 @@ const FormGatos = ({ isOpen, onClose }) => {
         <div className="p-6 md:p-10 max-h-[85vh] overflow-y-auto">
           <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 text-center mb-6">Consulta Inicial Conducta Felina</h1>
           
-          <form action="mailto:proanimalacademy@gmail.com" method="post" encType="text/plain" className="space-y-6">
+          <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
             {/* Datos del Tutor */}
             <div className="space-y-4">
               <h2 className="text-2xl font-bold text-gray-900 border-b-2 border-amber-400 pb-2">Datos del Tutor</h2>
@@ -289,9 +323,19 @@ const FormGatos = ({ isOpen, onClose }) => {
               </div>
             </div>
 
-            <button type="submit" className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 px-6 rounded-lg transition-colors duration-300 text-lg">
-              Enviar Consulta
+            <button 
+              type="submit" 
+              disabled={isSubmitting}
+              className="w-full bg-amber-500 hover:bg-amber-600 disabled:bg-gray-400 text-white font-bold py-4 px-6 rounded-lg transition-colors duration-300 text-lg disabled:cursor-not-allowed"
+            >
+              {isSubmitting ? 'Enviando...' : 'Enviar Consulta'}
             </button>
+
+            {submitMessage && (
+              <div className={`text-center p-4 rounded-lg font-semibold ${submitMessage.includes('éxito') ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                {submitMessage}
+              </div>
+            )}
           </form>
         </div>
       </div>

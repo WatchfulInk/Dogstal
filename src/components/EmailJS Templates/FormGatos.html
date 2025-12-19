@@ -1,0 +1,407 @@
+<div style="font-family: system-ui, -apple-system, sans-serif; max-width: 800px; margin: 0 auto; background-color: #f9fafb;">
+  <!-- Header -->
+  <div style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); padding: 30px; border-radius: 12px 12px 0 0;">
+    <div style="text-align: center;">
+      <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 800;">🐱 Consulta Inicial Conducta Felina</h1>
+      <p style="color: #fef3c7; margin: 10px 0 0 0; font-size: 14px;">ProAnimal Academy</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div style="background-color: #ffffff; padding: 30px; border-left: 1px solid #e5e7eb; border-right: 1px solid #e5e7eb;">
+    
+    <!-- Intro Message -->
+    <div style="background-color: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin-bottom: 30px; border-radius: 6px;">
+      <p style="color: #78350f; margin: 0; font-size: 14px; line-height: 1.6;">
+        <strong>Nueva consulta recibida</strong><br>
+        Se ha recibido una solicitud de consulta inicial para conducta felina. Revisa los detalles a continuación.
+      </p>
+    </div>
+
+    <!-- DATOS DEL TUTOR -->
+    <div style="margin-bottom: 35px;">
+      <h2 style="color: #111827; font-size: 20px; font-weight: 700; margin: 0 0 20px 0; padding-bottom: 10px; border-bottom: 3px solid #f59e0b;">
+        👤 Datos del Tutor
+      </h2>
+      
+      <table role="presentation" style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; width: 35%; font-weight: 600; color: #6b7280; font-size: 13px;">
+            Nombre Completo
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{nombre}} {{apellido}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            Otro Tutor / Responsable
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{otro-tutor-primero}} {{otro-tutor-apellido}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            📱 Teléfono
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            <a href="tel:{{telefono}}" style="color: #2563eb; text-decoration: none;">{{telefono}}</a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            📧 Email
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            <a href="mailto:{{email}}" style="color: #2563eb; text-decoration: none;">{{email}}</a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            📍 Dirección
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{direccion-linea1}}<br>
+            {{direccion-linea2}}<br>
+            {{ciudad}}, {{estado}} {{codigo-zip}}<br>
+            {{pais}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            💡 Referencia
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; color: #111827; font-size: 14px;">
+            {{referencia}}
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- DATOS DEL GATO -->
+    <div style="margin-bottom: 35px;">
+      <h2 style="color: #111827; font-size: 20px; font-weight: 700; margin: 0 0 20px 0; padding-bottom: 10px; border-bottom: 3px solid #f59e0b;">
+        🐱 Datos del Gato
+      </h2>
+      
+      <table role="presentation" style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; width: 35%; font-weight: 600; color: #6b7280; font-size: 13px;">
+            Nombre
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px; font-weight: 600;">
+            {{nombre-gato}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            Edad
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{edad-gato}} {{edad-unidad}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            Sexo
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{sexo}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            Raza
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{raza}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            Peso
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{peso}} kg
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            Medio de Adquisición
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{adquisicion}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            Edad de Adquisición
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; color: #111827; font-size: 14px;">
+            {{edad-adquisicion}} {{edad-adquisicion-unidad}}
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- EVOLUCIÓN Y MOTIVO DE CONSULTA -->
+    <div style="margin-bottom: 35px;">
+      <h2 style="color: #111827; font-size: 20px; font-weight: 700; margin: 0 0 20px 0; padding-bottom: 10px; border-bottom: 3px solid #f59e0b;">
+        📋 Evolución y Motivo de Consulta
+      </h2>
+      
+      <table role="presentation" style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; width: 35%; font-weight: 600; color: #6b7280; font-size: 13px;">
+            Motivo de Consulta
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{motivo-consulta}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            Inicio del Problema
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{inicio-problema}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            Circunstancias del Problema
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{circunstancias-problema}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            ¿Atendido Anteriormente?
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{atendido}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            Detalle Anterior Atención
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; color: #111827; font-size: 14px;">
+            {{atendido-detalle-especificar}}
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- ENTORNO Y HOGAR -->
+    <div style="margin-bottom: 35px;">
+      <h2 style="color: #111827; font-size: 20px; font-weight: 700; margin: 0 0 20px 0; padding-bottom: 10px; border-bottom: 3px solid #f59e0b;">
+        🏠 Entorno y Hogar
+      </h2>
+      
+      <table role="presentation" style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; width: 35%; font-weight: 600; color: #6b7280; font-size: 13px;">
+            ¿Más Animales en Casa?
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{mas-animales}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            Detalle Animales Adicionales
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{mas-animales-detalle-especificar}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            Personas en Casa
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{numero-personas}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            ¿Animales Anteriores?
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{animales-anteriores}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            Detalle Animales Anteriores
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; color: #111827; font-size: 14px;">
+            {{animales-anteriores-detalle-especificar}}
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- ASPECTOS MÉDICOS -->
+    <div style="margin-bottom: 35px;">
+      <h2 style="color: #111827; font-size: 20px; font-weight: 700; margin: 0 0 20px 0; padding-bottom: 10px; border-bottom: 3px solid #f59e0b;">
+        🏥 Aspectos Médicos
+      </h2>
+      
+      <table role="presentation" style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; width: 35%; font-weight: 600; color: #6b7280; font-size: 13px;">
+            ¿Condición Médica?
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{condicion-medica}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            Detalle Condición Médica
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{condicion-medica-detalle-especificar}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            ¿Tratamiento Médico?
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{tratamiento-medico}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            Detalle Tratamiento Médico
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; color: #111827; font-size: 14px;">
+            {{tratamiento-medico-detalle-especificar}}
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- COMPORTAMIENTOS Y HÁBITOS -->
+    <div style="margin-bottom: 35px;">
+      <h2 style="color: #111827; font-size: 20px; font-weight: 700; margin: 0 0 20px 0; padding-bottom: 10px; border-bottom: 3px solid #f59e0b;">
+        😺 Comportamientos y Hábitos
+      </h2>
+      
+      <table role="presentation" style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; width: 35%; font-weight: 600; color: #6b7280; font-size: 13px;">
+            ¿Arenero Adecuado?
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{arenero-adecuado}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            Detalle Arenero
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{arenero-adecuado-detalle-especificar}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            ¿Rascadores?
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{rascadores}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            Detalle Rascadores
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{rascadores-detalle-especificar}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            ¿Acceso al Exterior?
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{acceso-exterior}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            Detalle Acceso Exterior
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{acceso-exterior-detalle-especificar}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            Rutina de Alimentación
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{rutina-alimentacion}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            Rutina de Limpieza
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{rutina-limpieza}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            Rutina de Juego
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px;">
+            {{rutina-juego}}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; font-weight: 600; color: #6b7280; font-size: 13px;">
+            Cambios en la Vida
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; color: #111827; font-size: 14px;">
+            {{cambio-vida}}
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- PRONÓSTICO Y OBJETIVOS -->
+    <div style="margin-bottom: 35px;">
+      <h2 style="color: #111827; font-size: 20px; font-weight: 700; margin: 0 0 20px 0; padding-bottom: 10px; border-bottom: 3px solid #f59e0b;">
+        🎯 Pronóstico y Objetivos
+      </h2>
+      
+      <table role="presentation" style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <td style="padding: 12px; background-color: #f9fafb; width: 35%; font-weight: 600; color: #6b7280; font-size: 13px;">
+            Objetivos de la Consulta
+          </td>
+          <td style="padding: 12px; background-color: #ffffff; color: #111827; font-size: 14px;">
+            {{objetivos-consulta}}
+          </td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div style="background-color: #111827; padding: 20px; text-align: center; border-radius: 0 0 12px 12px;">
+    <p style="color: #9ca3af; margin: 0; font-size: 12px;">
+      © 2025 ProAnimal Academy | Consulta Inicial de Conducta Felina<br>
+      <span style="color: #6b7280;">Email generado automáticamente - No responder</span>
+    </p>
+  </div>
+</div>

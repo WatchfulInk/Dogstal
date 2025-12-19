@@ -189,9 +189,6 @@ function App() {
                   </div>
                 </li>
               </ul>
-              <button className="px-8 py-4 bg-amber-400 hover:bg-amber-500 text-gray-900 font-bold rounded-xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
-                Conoce más
-              </button>
             </div>
           </div>
         </div>
@@ -219,9 +216,6 @@ function App() {
               <p className="text-gray-600 mb-6 leading-relaxed">
                 Completa éste formulario para obtener información general de tu caso y posteriormente ponernos en contacto contigo para recavar mayor información y enviarte una propuesta de trabajo.
               </p>
-              <button className="w-full px-6 py-3 bg-amber-400 hover:bg-amber-500 text-gray-900 font-bold rounded-xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
-                Llenar formulario
-              </button>
             </div>
 
             {/* Card 2 - Manos a la obra */}
@@ -234,9 +228,6 @@ function App() {
               <p className="text-gray-600 mb-6 leading-relaxed">
                 Después de recibir la propuesta de trabajo podemos agendar las citas en el horario que mejor te convenga para comenzar a crear resultados.
               </p>
-              <button className="w-full px-6 py-3 bg-amber-400 hover:bg-amber-500 text-gray-900 font-bold rounded-xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
-                Agendar cita
-              </button>
             </div>
 
             {/* Card 3 - Tienes dudas */}
@@ -249,9 +240,6 @@ function App() {
               <p className="text-gray-600 mb-6 leading-relaxed">
                 Estamos a tus órdenes para resolver cualquier duda
               </p>
-              <button className="w-full px-6 py-3 bg-amber-400 hover:bg-amber-500 text-gray-900 font-bold rounded-xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
-                Contactar
-              </button>
             </div>
           </div>
         </div>
